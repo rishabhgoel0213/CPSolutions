@@ -1,3 +1,4 @@
+//https://codeforces.com/contest/151/problem/D
 
 import DataStructures.DisjointSetUnion;
 import static NumberTheory.ModularArithmetic.powMod;
