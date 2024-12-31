@@ -4,18 +4,13 @@ import java.util.*;
 
 public class DisjointSetUnion
 {
-    Map<Object, Object> parent = new HashMap<>();
-    Map<Object, Integer> size = new HashMap<>();
+    public Map<Object, Object> parent = new HashMap<>();
+    public Map<Object, Integer> size = new HashMap<>();
 
     public void makeSet(Object vertex)
     {
         parent.put(vertex, vertex);
         size.put(vertex, 1);
-    }
-
-    public boolean isRoot(Object vertex)
-    {
-        return vertex.equals(parent.get(vertex));
     }
 
     //O(n) on average
@@ -58,6 +53,10 @@ public class DisjointSetUnion
     //Approximately Constant Time per Query
     public void unionSets(Object vertexA, Object vertexB)
     {
+        if(!parent.containsKey(vertexA) || !parent.containsKey(vertexB))
+        {
+            return;
+        }
         Object rootA = findRoot(vertexA);
         Object rootB = findRoot(vertexB);
         if(!rootA.equals(rootB))

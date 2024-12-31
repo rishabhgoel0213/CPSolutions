@@ -1,13 +1,111 @@
 //https://codeforces.com/contest/151/problem/D
 
-import DataStructures.DisjointSetUnion;
-import static NumberTheory.ModularArithmetic.powMod;
 import java.util.*;
-
-
 
 public class QuantityOfStrings
 {
+    public static class DisjointSetUnion
+    {
+        public Map<Object, Object> parent = new HashMap<>();
+        public Map<Object, Integer> size = new HashMap<>();
+
+        public void makeSet(Object vertex)
+        {
+            parent.put(vertex, vertex);
+            size.put(vertex, 1);
+        }
+
+        //O(n) on average
+        private Object findRootNaive(Object vertex)
+        {
+            Object dp = parent.get(vertex);
+            while(!dp.equals(vertex))
+            {
+                vertex = dp;
+                dp = parent.get(vertex);
+            }
+            return vertex;
+        }
+
+        //O(logn) on average
+        public Object findRoot(Object vertex)
+        {
+            Object dp = parent.get(vertex);
+            while(!dp.equals(vertex))
+            {
+                parent.put(vertex, parent.get(dp));
+                vertex = dp;
+                dp = parent.get(vertex);
+            }
+
+            return vertex;
+        }
+
+        //O(logn) on average
+        private void unionSetsNaive(Object vertexA, Object vertexB)
+        {
+            Object rootA = findRoot(vertexA);
+            Object rootB = findRoot(vertexB);
+            if(!rootA.equals(rootB))
+            {
+                parent.put(rootB, rootA);
+            }
+        }
+
+        //Approximately Constant Time per Query
+        public void unionSets(Object vertexA, Object vertexB)
+        {
+            if(!parent.containsKey(vertexA) || !parent.containsKey(vertexB))
+            {
+                return;
+            }
+            Object rootA = findRoot(vertexA);
+            Object rootB = findRoot(vertexB);
+            if(!rootA.equals(rootB))
+            {
+                if(size.get(rootA) < size.get(rootB))
+                {
+                    parent.put(rootA, rootB);
+                    size.put(rootB, size.get(rootA) + size.get(rootB));
+                }
+                else
+                {
+                    parent.put(rootB, rootA);
+                    size.put(rootA, size.get(rootA) + size.get(rootB));
+
+                }
+            }
+        }
+    }
+
+    static long mod = 1000000007L;
+    public static long powMod(long base, long exp)
+    {
+        long b = 1;
+        long A = base;
+        if((exp & 1) == 1)
+        {
+            b = base % mod;
+        }
+        exp  = (exp >> 1);
+        while(exp > 0)
+        {
+            A = (A * A) % mod;
+            if((exp & 1) == 1)
+            {
+                b = (A * b) % mod;
+            }
+            exp = (exp >> 1);
+        }
+
+        return b % mod;
+    }
+
+    public static boolean isRoot(DisjointSetUnion sets, Object vertex)
+    {
+        return vertex.equals(sets.parent.get(vertex));
+    }
+
     public static void main(String[] args)
     {
         Scanner in = new Scanner(System.in);
@@ -56,7 +154,7 @@ public class QuantityOfStrings
         int count = 0;
         for(int i = 0; i < n; i++)
         {
-            if(graph.isRoot(i))
+            if(isRoot(graph, i))
             {
                 count++;
             }
