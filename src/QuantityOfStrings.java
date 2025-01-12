@@ -1,4 +1,4 @@
-//https://codeforces.com/contest/151/problem/D
+//https://codeforces.com/contest/151/problem/D - Accepted
 
 import java.util.*;
 

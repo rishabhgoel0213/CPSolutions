@@ -1,4 +1,4 @@
-//https://codeforces.com/problemset/problem/547/B
+//https://codeforces.com/problemset/problem/547/B - Accepted
 
 #include <iostream>
 #include <numeric>
