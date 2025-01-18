@@ -1,5 +1,3 @@
-package NumberTheory;
-
 public class ModularArithmetic
 {
     //mod must be a prime number for certain optimizations to work
