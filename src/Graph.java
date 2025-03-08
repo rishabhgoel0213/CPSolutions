@@ -11,7 +11,7 @@ class Edge {
 
 public class Graph {
     private final int n;                 // Number of vertices
-    private final List<Edge>[] adj;      // Adjacency list: adj[u] = list of edges from u
+    public final List<Edge>[] adj;      // Adjacency list: adj[u] = list of edges from u
 
     @SuppressWarnings("unchecked")
     public Graph(int n) {

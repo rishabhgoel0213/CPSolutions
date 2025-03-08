@@ -1,7 +1,7 @@
 public class UnionFind {
-    private int[] parent;
-    private int[] size;  // You could also call this 'rank'
-    private int count;   // Optional: track the number of disjoint sets
+    public int[] parent;
+    public int[] size;  // You could also call this 'rank'
+    public int count;   // Optional: track the number of disjoint sets
 
     public UnionFind(int n) {
         parent = new int[n];
